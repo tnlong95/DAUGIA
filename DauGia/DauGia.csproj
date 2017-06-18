@@ -197,50 +197,48 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DanhMucController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Data\DauGia.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DauGia.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\DauGia.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\DauGia.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DauGia.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Producer.cs">
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Product.cs">
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\ProductDetail.cs">
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\ProductStatu.cs">
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\ProductType.cs">
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Role.cs">
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\User.cs">
-      <DependentUpon>DauGia.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\CurrentContext.cs" />
     <Compile Include="Helper\StringUtils.cs" />
+    <Compile Include="Models\DanhGia.cs">
+      <DependentUpon>DauGia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DanhMuc.cs">
+      <DependentUpon>DauGia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DauGia.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DauGia.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DauGia.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DauGia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DauGia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DauGia.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiaoDich.cs">
+      <DependentUpon>DauGia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NguoiDung.cs">
+      <DependentUpon>DauGia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SanPham.cs">
+      <DependentUpon>DauGia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UuThich.cs">
+      <DependentUpon>DauGia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -310,20 +308,20 @@
     <Content Include="Content\js\script.js" />
     <Content Include="Content\js\slides.min.jquery.js" />
     <Content Include="Content\js\startstop-slider.js" />
-    <Content Include="Data\DauGia.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DauGia.edmx</DependentUpon>
-      <LastGenOutput>DauGia.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Data\DauGia.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DauGia.edmx</DependentUpon>
-      <LastGenOutput>DauGia.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\DauGia.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DauGia.edmx</DependentUpon>
+      <LastGenOutput>DauGia.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DauGia.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DauGia.edmx</DependentUpon>
+      <LastGenOutput>DauGia.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -331,14 +329,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Data\DauGia.edmx">
+    <Content Include="Content\font\Amble-Regular-webfont.ttf" />
+    <EntityDeploy Include="Models\DauGia.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DauGia.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Data\DauGia.edmx.diagram">
+    <Content Include="Models\DauGia.edmx.diagram">
       <DependentUpon>DauGia.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\font\Amble-Regular-webfont.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -374,10 +372,10 @@
     <Content Include="Views\Product\PartialSanPhamRaGiaNhieu.cshtml" />
     <Content Include="Views\Product\PartialSanPhamRaGiaCaoNhat.cshtml" />
     <Content Include="Views\Product\PartialSanPhamGanKetThuc.cshtml" />
+    <Content Include="Views\DanhMuc\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>

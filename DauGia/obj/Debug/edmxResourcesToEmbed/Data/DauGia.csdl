@@ -1,184 +1,198 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Producer">
+<Schema Namespace="DauGiaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DanhGia">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaNguoiDung" />
+      <PropertyRef Name="MaSanPham" />
     </Key>
-    <Property Name="Id" Type="Byte" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="ProductDetails" Relationship="Self.FK_ProductDetail_ProductDetail" FromRole="Producer" ToRole="ProductDetail" />
+    <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
+    <Property Name="MaSanPham" Type="Int32" Nullable="false" />
+    <Property Name="BinhLuan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DanhGia_NguoiDung" FromRole="DanhGia" ToRole="NguoiDung" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK_DanhGia_SanPham" FromRole="DanhGia" ToRole="SanPham" />
   </EntityType>
-  <EntityType Name="Product">
+  <EntityType Name="DanhMuc">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaTheLoai" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Type" Type="Byte" Nullable="false" />
-    <Property Name="Quantity" Type="Int32" Nullable="false" />
-    <Property Name="TimeUpdate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Status" Type="Byte" Nullable="false" />
-    <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="ProductStatu" Relationship="Self.FK_Product_ProcductStatus" FromRole="Product" ToRole="ProductStatus" />
-    <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_TypeProduct" FromRole="Product" ToRole="ProductType" />
-    <NavigationProperty Name="User" Relationship="Self.FK_Product_User" FromRole="Product" ToRole="User" />
-    <NavigationProperty Name="ProductDetail" Relationship="Self.FK_ProductDetail_Product" FromRole="Product" ToRole="ProductDetail" />
+    <Property Name="MaTheLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenTheLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SanPhams" Relationship="Self.FK_SanPham_DanhMuc" FromRole="DanhMuc" ToRole="SanPham" />
   </EntityType>
-  <EntityType Name="ProductDetail">
+  <EntityType Name="DauGia">
     <Key>
-      <PropertyRef Name="ProductId" />
+      <PropertyRef Name="MaNguoiDung" />
+      <PropertyRef Name="MaSanPham" />
     </Key>
-    <Property Name="ProductId" Type="Int32" Nullable="false" />
-    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="ProducerId" Type="Byte" Nullable="false" />
-    <Property Name="Root" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Producer" Relationship="Self.FK_ProductDetail_ProductDetail" FromRole="ProductDetail" ToRole="Producer" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_ProductDetail_Product" FromRole="ProductDetail" ToRole="Product" />
+    <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
+    <Property Name="MaSanPham" Type="Int32" Nullable="false" />
+    <Property Name="ThangCuoc" Type="Boolean" />
+    <Property Name="KichNguoiDung" Type="Boolean" />
+    <Property Name="NgayHienTai" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DauGia_NguoiDung" FromRole="DauGia" ToRole="NguoiDung" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK_DauGia_SanPham" FromRole="DauGia" ToRole="SanPham" />
   </EntityType>
-  <EntityType Name="ProductStatu">
+  <EntityType Name="NguoiDung">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaNguoiDung" />
     </Key>
-    <Property Name="Id" Type="Byte" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Product_ProcductStatus" FromRole="ProductStatus" ToRole="Product" />
+    <Property Name="MaNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenNguoiDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TaiKhoan" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="PhanQuyen" Type="Int32" />
+    <NavigationProperty Name="DanhGias" Relationship="Self.FK_DanhGia_NguoiDung" FromRole="NguoiDung" ToRole="DanhGia" />
+    <NavigationProperty Name="DauGias" Relationship="Self.FK_DauGia_NguoiDung" FromRole="NguoiDung" ToRole="DauGia" />
+    <NavigationProperty Name="UuThiches" Relationship="Self.FK_UuThich_NguoiDung" FromRole="NguoiDung" ToRole="UuThich" />
   </EntityType>
-  <EntityType Name="ProductType">
+  <EntityType Name="SanPham">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaSanPham" />
     </Key>
-    <Property Name="Id" Type="Byte" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Product_TypeProduct" FromRole="ProductType" ToRole="Product" />
+    <Property Name="MaSanPham" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenSanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Gia" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MaTheLoai" Type="Int32" />
+    <Property Name="MaNguoiDung" Type="Int32" />
+    <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
+    <Property Name="NgayKetThuc" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="DanhGias" Relationship="Self.FK_DanhGia_SanPham" FromRole="SanPham" ToRole="DanhGia" />
+    <NavigationProperty Name="DanhMuc" Relationship="Self.FK_SanPham_DanhMuc" FromRole="SanPham" ToRole="DanhMuc" />
+    <NavigationProperty Name="DauGias" Relationship="Self.FK_DauGia_SanPham" FromRole="SanPham" ToRole="DauGia" />
+    <NavigationProperty Name="UuThiches" Relationship="Self.FK_UuThich_SanPham" FromRole="SanPham" ToRole="UuThich" />
   </EntityType>
-  <EntityType Name="Role">
+  <EntityType Name="UuThich">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaNguoiDung" />
+      <PropertyRef Name="MaSanPham" />
     </Key>
-    <Property Name="Id" Type="Byte" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+    <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
+    <Property Name="MaSanPham" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_UuThich_NguoiDung" FromRole="UuThich" ToRole="NguoiDung" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK_UuThich_SanPham" FromRole="UuThich" ToRole="SanPham" />
   </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="RoleId" Type="Byte" Nullable="false" />
-    <Property Name="Phone" Type="Int32" Nullable="false" />
-    <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Product_User" FromRole="User" ToRole="Product" />
-    <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
-  </EntityType>
-  <Association Name="FK_ProductDetail_ProductDetail">
-    <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
-    <End Role="ProductDetail" Type="Self.ProductDetail" Multiplicity="*" />
+  <Association Name="FK_DanhGia_NguoiDung">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1" />
+    <End Role="DanhGia" Type="Self.DanhGia" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Producer">
-        <PropertyRef Name="Id" />
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="MaNguoiDung" />
       </Principal>
-      <Dependent Role="ProductDetail">
-        <PropertyRef Name="ProducerId" />
+      <Dependent Role="DanhGia">
+        <PropertyRef Name="MaNguoiDung" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_ProcductStatus">
-    <End Role="ProductStatus" Type="Self.ProductStatu" Multiplicity="1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+  <Association Name="FK_DanhGia_SanPham">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="DanhGia" Type="Self.DanhGia" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ProductStatus">
-        <PropertyRef Name="Id" />
+      <Principal Role="SanPham">
+        <PropertyRef Name="MaSanPham" />
       </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="Status" />
+      <Dependent Role="DanhGia">
+        <PropertyRef Name="MaSanPham" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_TypeProduct">
-    <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+  <Association Name="FK_SanPham_DanhMuc">
+    <End Role="DanhMuc" Type="Self.DanhMuc" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ProductType">
-        <PropertyRef Name="Id" />
+      <Principal Role="DanhMuc">
+        <PropertyRef Name="MaTheLoai" />
       </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="Type" />
+      <Dependent Role="SanPham">
+        <PropertyRef Name="MaTheLoai" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_User">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+  <Association Name="FK_DauGia_NguoiDung">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1" />
+    <End Role="DauGia" Type="Self.DauGia" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="MaNguoiDung" />
       </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="UserId" />
+      <Dependent Role="DauGia">
+        <PropertyRef Name="MaNguoiDung" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ProductDetail_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="1" />
-    <End Role="ProductDetail" Type="Self.ProductDetail" Multiplicity="0..1" />
+  <Association Name="FK_DauGia_SanPham">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="DauGia" Type="Self.DauGia" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="Id" />
+      <Principal Role="SanPham">
+        <PropertyRef Name="MaSanPham" />
       </Principal>
-      <Dependent Role="ProductDetail">
-        <PropertyRef Name="ProductId" />
+      <Dependent Role="DauGia">
+        <PropertyRef Name="MaSanPham" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_Role">
-    <End Role="Role" Type="Self.Role" Multiplicity="1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
+  <Association Name="FK_UuThich_NguoiDung">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1" />
+    <End Role="UuThich" Type="Self.UuThich" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Role">
-        <PropertyRef Name="Id" />
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="MaNguoiDung" />
       </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="RoleId" />
+      <Dependent Role="UuThich">
+        <PropertyRef Name="MaNguoiDung" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UuThich_SanPham">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="UuThich" Type="Self.UuThich" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="MaSanPham" />
+      </Principal>
+      <Dependent Role="UuThich">
+        <PropertyRef Name="MaNguoiDung" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="DauGiaEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Producers" EntityType="Self.Producer" />
-    <EntitySet Name="Products" EntityType="Self.Product" />
-    <EntitySet Name="ProductDetails" EntityType="Self.ProductDetail" />
-    <EntitySet Name="ProductStatus" EntityType="Self.ProductStatu" />
-    <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
-    <EntitySet Name="Roles" EntityType="Self.Role" />
-    <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK_ProductDetail_ProductDetail" Association="Self.FK_ProductDetail_ProductDetail">
-      <End Role="Producer" EntitySet="Producers" />
-      <End Role="ProductDetail" EntitySet="ProductDetails" />
+    <EntitySet Name="DanhGias" EntityType="Self.DanhGia" />
+    <EntitySet Name="DanhMucs" EntityType="Self.DanhMuc" />
+    <EntitySet Name="DauGias" EntityType="Self.DauGia" />
+    <EntitySet Name="NguoiDungs" EntityType="Self.NguoiDung" />
+    <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
+    <EntitySet Name="UuThiches" EntityType="Self.UuThich" />
+    <AssociationSet Name="FK_DanhGia_NguoiDung" Association="Self.FK_DanhGia_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDungs" />
+      <End Role="DanhGia" EntitySet="DanhGias" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_ProcductStatus" Association="Self.FK_Product_ProcductStatus">
-      <End Role="ProductStatus" EntitySet="ProductStatus" />
-      <End Role="Product" EntitySet="Products" />
+    <AssociationSet Name="FK_DanhGia_SanPham" Association="Self.FK_DanhGia_SanPham">
+      <End Role="SanPham" EntitySet="SanPhams" />
+      <End Role="DanhGia" EntitySet="DanhGias" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_TypeProduct" Association="Self.FK_Product_TypeProduct">
-      <End Role="ProductType" EntitySet="ProductTypes" />
-      <End Role="Product" EntitySet="Products" />
+    <AssociationSet Name="FK_SanPham_DanhMuc" Association="Self.FK_SanPham_DanhMuc">
+      <End Role="DanhMuc" EntitySet="DanhMucs" />
+      <End Role="SanPham" EntitySet="SanPhams" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_User" Association="Self.FK_Product_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Product" EntitySet="Products" />
+    <AssociationSet Name="FK_DauGia_NguoiDung" Association="Self.FK_DauGia_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDungs" />
+      <End Role="DauGia" EntitySet="DauGias" />
     </AssociationSet>
-    <AssociationSet Name="FK_ProductDetail_Product" Association="Self.FK_ProductDetail_Product">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="ProductDetail" EntitySet="ProductDetails" />
+    <AssociationSet Name="FK_DauGia_SanPham" Association="Self.FK_DauGia_SanPham">
+      <End Role="SanPham" EntitySet="SanPhams" />
+      <End Role="DauGia" EntitySet="DauGias" />
     </AssociationSet>
-    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-      <End Role="Role" EntitySet="Roles" />
-      <End Role="User" EntitySet="Users" />
+    <AssociationSet Name="FK_UuThich_NguoiDung" Association="Self.FK_UuThich_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDungs" />
+      <End Role="UuThich" EntitySet="UuThiches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UuThich_SanPham" Association="Self.FK_UuThich_SanPham">
+      <End Role="SanPham" EntitySet="SanPhams" />
+      <End Role="UuThich" EntitySet="UuThiches" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
