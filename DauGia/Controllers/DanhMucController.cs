@@ -17,7 +17,7 @@ namespace DauGia.Controllers
                 using (DauGiaEntities ctx = new DauGiaEntities())
                 {
                     var lstDanhMuc = ctx.DanhMucs.ToList();
-                    return PartialView("List",lstDanhMuc);
+                    return PartialView("List", lstDanhMuc);
                 }
             }
             catch (Exception ex)

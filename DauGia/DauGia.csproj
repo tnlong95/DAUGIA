@@ -201,6 +201,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -373,6 +374,10 @@
     <Content Include="Views\Product\PartialSanPhamRaGiaCaoNhat.cshtml" />
     <Content Include="Views\Product\PartialSanPhamGanKetThuc.cshtml" />
     <Content Include="Views\DanhMuc\List.cshtml" />
+    <Content Include="Views\SanPham\ByCat.cshtml" />
+    <Content Include="Views\SanPham\NamSanPhamGiaCaoNhat.cshtml" />
+    <Content Include="Views\SanPham\NamSanPhamCoNhieuLuoDauGiaNhat.cshtml" />
+    <Content Include="Views\SanPham\NamSanPhamCoNgayGanHetHan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
