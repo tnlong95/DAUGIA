@@ -1,0 +1,26 @@
+﻿
+@using DauGia.Models;
+@model List<NguoiDung>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Tên Đăng Nhập</th>
+            <th>Email</th>
+            <th>Tên Người Dùng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (NguoiDung nd in Model)
+            {
+            <tr>
+                <td>@nd.MaNguoiDung</td>
+                <td>@nd.TaiKhoan</td>
+                <td>@nd.Email</td>
+                <td>@nd.TenNguoiDung</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DauGia.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,11 +14,15 @@ namespace DauGia.Controllers
         {
             return View();
         }
-        public ActionResult ManagerUser()
+        public ActionResult QuanLySanPham()
         {
             return View();
         }
-        public ActionResult ManagerTicket()
+        public ActionResult QuanLyNguoiDung()
+        {
+            return View();
+        }
+        public ActionResult QuanLyDanhMuc()
         {
             return View();
         }

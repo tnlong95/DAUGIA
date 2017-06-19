@@ -24,6 +24,11 @@ namespace DauGia.Fitters
                     );
                 return;
             }
+            if (CurrentContext.CurUser().PhanQuyen == this.RequiredPermission)
+            {
+                filterContext.Result = new HttpUnauthorizedResult();
+                return;
+            }
 
             base.OnActionExecuting(filterContext);
         }

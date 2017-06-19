@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "QuanLySanPham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="header">
+    <h3>QUẢN LÝ SẢN PHẨM</h3>
+</div>
+<div class="content">
+    @Html.Action("PartialDanhSachSanPham", "Product");
+</div>
+
