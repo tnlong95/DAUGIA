@@ -1,4 +1,4 @@
-﻿using DauGia.Models;
+﻿using DauGia.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace DauGia.Helper
 
                 using (DauGiaEntities ql = new DauGiaEntities())
                 {
-                    NguoiDung tk = ql.NguoiDung;
+                    NguoiDung tk = ql.NguoiDung.
                         Where(q => q.TaiKhoan == username).
                         FirstOrDefault();
                     if (tk != null)
@@ -35,22 +35,20 @@ namespace DauGia.Helper
                         HttpContext.Current.Session["CurUser"] = tk;
                         HttpContext.Current.Session["IsLogin"] = 1;
                         return true;
-                    } 
+                    }
                 }
             }
             return false;
         }
-        
         public static NguoiDung CurUser()
         {
             return (NguoiDung)HttpContext.Current.Session["CurUser"];
         }
-        
         public static void Destroy()
         {
             HttpContext.Current.Session["IsLogin"] = 0;
             HttpContext.Current.Session["CurUser"] = null;
             HttpContext.Current.Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
-        } 
+        }
     }
 }

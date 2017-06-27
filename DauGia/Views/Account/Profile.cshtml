@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    <script src="~/Content/js/jquery -validation/dist/jquery.validate.min.js"></script>
+    <script>
+        // kiem tra bang validator
+        $('#profile-from').validate({
+            rules: {//luật
+                NameNew:{
+                    required: true
+                },
+                EmailNew: {
+                    required: true,
+                },
+                Oldpass: {
+                    required: true
+                },
+                NewPass: {
+                    required: true,
+                    minlength: 5
+                },
+                NhapMK: {
+                    required: true, equalTo: "#NewPass"
+                },
+            },
+            messages: {// thông báo
+                NameNew: {
+                    required: "Chưa nhập tên.",
+                },
+                EmailNew: {
+                    required: "Chưa nhập email.",
+                },
+                Oldpass: {
+                    required: 'Chưa nhập mật khẩu cũ.'
+                },
+
+                NewPass: {
+                    required: 'Chưa nhập mật khẩu mới.',
+                    minlength: 'Mật Khẩu ít nhất 5 kí tự.'
+                },
+                NhapMK: {
+                    required: 'Nhập lại mật khẩu mới.',
+                    equalTo: 'Nhập sai mật khẩu'
+                },
+            },
+            errorElenment: 'span',
+            errorClass: 'help-block',
+            highlight: function (element) {// hiển thị nâng cao thêm class sau form-group has-error
+                $(element)
+                .closest('.form-group').addClass('has-error');
+            },
+            success: function (lable) {
+                lable.closest('.form-group').removeClass('has-error');
+            },
+            submitHandler: function (form) {
+                var dataObject = {
+                    MaTK: $('#MaTK').val(),
+                    Oldpass: $('#MKold').val(),
+                    NewPass: $('#MK').val(),
+                };
+                form.submit();
+            }
+        });
+
+    </script>
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-warning alert-dismissible @if(ViewBag.Error != null){<text> text-danger</text>}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        <strong>Lỗi !</strong>@ViewBag.Error
+    </div>
+}
+<form class="form-horizontal" method="post" action="@Url.Action("profilepass", "Account")" id="profile-from" >
+    <div class="modal-body">
+        <input type="hidden" id="MaTK" name="MaTK" value="@Model.MaNguoiDung" />
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Tên mới</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="NameNew" name="NameNew" value="@Model.TenNguoiDung">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Email mới</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="EmailNew" name="EmailNew" value="@Model.Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Mật Khẩu Cũ</label>
+            <div class="col-sm-7">
+                <input type="password" class="form-control" id="Oldpass" placeholder="Mật Khẩu Cũ" name="Oldpass">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Mật Khẩu Mới</label>
+            <div class="col-sm-7">
+                <input type="password" class="form-control" id="NewPass" placeholder="Tối thiểu 5 kí tự" name="NewPass">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Nhập Lại Mật Khẩu</label>
+            <div class="col-sm-7">
+                <input type="password" class="form-control" id="NhapMK" placeholder="Nhập Lại Mật Khẩu" name="NhapMK">
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary" id="savepass">Lưu</button>
+    </div>
+</form>
+
+
+

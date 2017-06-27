@@ -5,9 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using DauGia.Data;
 using DauGia.Helper;
-using DauGia.Model;
+using DauGia.Models;
 using DauGia.Fitters;
-
+using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace DauGia.Controllers
 {
@@ -18,41 +19,45 @@ namespace DauGia.Controllers
         {
             return View();
         }
+        public ActionResult Login()
+        {
+            return View();
+        }
         // Post/Accout/Login
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
             using (DauGiaEntities ql = new DauGiaEntities())
             {
-               string encPW = StringUtils.Md5(model.Mk);
+                string encPW = StringUtils.Md5(model.Mk);
                 NguoiDung tk = ql.NguoiDung.
                     Where(u => u.TaiKhoan == model.TenDN && u.MatKhau == encPW)
                     .FirstOrDefault();
                 if (tk == null)
-               {
-                   ViewBag.Err = "Xin vui lòng kiểm tra lại thông tin đăng nhập!";
-                   return View(model);
-               }
-               else
-               {
-                   Session["IsLogin"] = 1;
-                   Session["CurUser"] = tk;
+                {
+                    ViewBag.Err = "Xin vui lòng kiểm tra lại thông tin đăng nhập!";
+                    return View(model);
+                }
+                else
+                {
+                    Session["IsLogin"] = 1;
+                    Session["CurUser"] = tk;
                     if (model.Remember)// khi đã đăng nhập
-                   {
-
-                       Response.Cookies["UserName"].Value = TenNguoiDung;
-                       Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(1);
-                   }
-                   if (tk.PhanQuyen == 1)
                     {
-                       return RedirectToAction("Index", "Home");
-                   }
-                   else
-                   {
-                       return RedirectToAction("Index", "Home");
-                   }
-               }
-           }
+
+                        Response.Cookies["UserName"].Value = tk.TenNguoiDung;
+                        Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(1);
+                    }
+                    if (tk.PhanQuyen == 1) // tài khoản thường
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else // He thống
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
         }
         // GET: /Account/Register
         public ActionResult Register()
@@ -61,12 +66,22 @@ namespace DauGia.Controllers
         }
         // Post: /Account/Register
         [HttpPost]
-        [CaptchaValidation("CaptchaCode", "ExampleCaptcha")]
         public ActionResult Register(RegisterModel model)
         {
-            if (ModelState.IsValid == false)
+            var response = Request["g-recaptcha-response"];
+            string secretKey = "6LcnAycUAAAAAAklEw73MX5LijDgWstP5fHZefSc";
+            var client = new WebClient();
+            var result = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(result);
+            var status = (bool)obj.SelectToken("success");
+            if(ModelState.IsValid == false)
             {
-                ViewBag.Error = "Error Captcha";
+                ViewBag.Error = "Xin nhập thông tin.";
+                return View(model);
+            }
+            if (status == false)
+            {
+                ViewBag.Error = "ReCaptcha chưa được thực hiện.";
                 return View(model);
             }
             using (DauGiaEntities ql = new DauGiaEntities())
@@ -87,17 +102,17 @@ namespace DauGia.Controllers
                 MatKhau = StringUtils.Md5(model.MK),
                 Email = model.Email,
                 TenNguoiDung = model.FullName,
-                PhanQuyen =1,
+                PhanQuyen = 1,// user nguoi dung
             };
             using (DauGiaEntities ctx = new DauGiaEntities())
             {
 
-                ctx.Users.Add(tk);
+                ctx.NguoiDung.Add(tk);
                 ctx.SaveChanges();
                 ModelState.Clear();
             }
 
-           return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Account");
         }
         // Post: /Account/LogOut
         [HttpPost]
@@ -106,8 +121,7 @@ namespace DauGia.Controllers
             CurrentContext.Destroy();
             return RedirectToAction("Login", "Account");
         }
-        //
-        //Get: /Account/profile
+        // trang cá nhân
         [CheckLogin]
         public ActionResult Profile()
         {
@@ -115,17 +129,19 @@ namespace DauGia.Controllers
             {
                 NguoiDung tk = CurrentContext.CurUser();
                 string ten = tk.TaiKhoan;
-                var model = ql.NguoiDung.Where(p => p.TaiKhoan== ten).FirstOrDefault();
+                var model = ql.NguoiDung.Where(p => p.TaiKhoan == ten).FirstOrDefault();
                 return View(model);
             }
         }
+        //
+        //Get: /Account/profilepass
         [CheckLogin]
         [HttpPost]
-         public ActionResult profilepass(Profile pr)
+        public ActionResult profilepass(Profile pr)
         {
             using (DauGiaEntities ql = new DauGiaEntities())
             {
-                string encPW = StringUtils.Md5(userUpdate.PasswordOld);
+                string encPW = StringUtils.Md5(pr.Oldpass);
                 NguoiDung tk = ql.NguoiDung.Where(p => p.MaNguoiDung == pr.MaTK).FirstOrDefault();
                 if (tk.MatKhau == encPW)
                 {
@@ -137,10 +153,12 @@ namespace DauGia.Controllers
                 }
                 else
                 {
-                    ViewBag.Error =" Cap nhat that bai!";
+                    ViewBag.Error = "Cập nhật thất bại!";
                     return View(tk);
                 }
             }
         }
+        //
+
     }
 }

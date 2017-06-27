@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    <script src="~/Content/js/jquery -validation/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $('#Logout_form').validate({
+            rules: {
+                Ten: {
+                    required: true,
+                    minlength: 1
+                },
+                MK: {
+                    required: true,
+                    minlength:3
+                },
+                nhapmk: {
+                    required: true,
+                    minlength: 3,
+                    equalTo: "#MK"
+                },
+                FullName: {
+                    required: true,
+                    minlength: 3,
+                },
+                Email: {
+                    required: true,
+                    email: true
+                },
+            },
+            messages: {
+                Ten: {
+                    required: "Chưa nhập tên đăng nhập.",
+                    minlength: "Tên đăng nhập ít nhất 1 kí tự."
+                },
+                MK: {
+                    required: "Chưa nhập mật khẩu.",
+                    minlength: "Mật khẩu ít nhất 3 kí tự."
+                },
+                nhapmk: {
+                    required: "Chưa nhập lại mật khẩu.",
+                    minlength: "Nhập lại mật khẩu ít nhất 3 kí tự.",
+                    equalTo: "Nhập lại mật khẩu không đúng."
+                },
+                FullName: {
+                    required: "Chưa nhập tên.",
+                    minlength: "Tên của bạn phải ít nhất có 3 kí tự",
+                },
+                Email: {
+                    required: "Chưa nhập email.",
+                    email: "Nhập email không đúng."
+                },
+            },
+            errorElenment: 'span',
+            errorClass: 'help-block',
+            highlight: function (element) {
+                $(element)
+                .closest('.form-group').addClass('has-error');
+            },
+            success: function (lable) {
+                lable.closest('.form-group').removeClass('has-error');
+            },
+        });
+    </script>
+ <script src='https://www.google.com/recaptcha/api.js'></script>
+
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-warning alert-dismissible @if(ViewBag.Error != null){<text> text-danger</text>}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        <strong>Lỗi !</strong>@ViewBag.Error
+    </div>
+}
+<form class="form-horizontal" method="post" action="" id="Logout_form">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Tên đăng nhập</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="Ten" placeholder="Tên đăng nhập" name="Ten">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Mật Khẩu</label>
+        <div class="col-sm-7">
+            <input type="password" class="form-control" id="MK" placeholder="Mật Khẩu" name="MK">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Nhập lại mật khẩu</label>
+        <div class="col-sm-7">
+            <input type="password" class="form-control" id="nhapmk" placeholder="Nhập lại mật khẩu" name="nhapmk">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Họ tên</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="FullName" placeholder="Họ tên" name="FullName">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-7">
+            <input type="email" class="form-control" id="Email" placeholder="Email" name="Email">
+        </div>
+    </div>
+         <div class="col-sm-7 col-sm-offset-3">
+            <div class="g-recaptcha" data-sitekey="6LcnAycUAAAAAAqFbX6G1HRCIXmbyWivpNcjEsGO"></div>
+        </div>   
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-check"></i> Đăng Ký
+            </button>
+        </div>
+    </div>
+</form>
