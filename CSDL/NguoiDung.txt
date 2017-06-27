@@ -1,0 +1,26 @@
+CREATE TABLE [dbo].[NguoiDung](
+	[MaNguoiDung] [int] IDENTITY(1,1) NOT NULL,
+	[TenNguoiDung] [nvarchar](50) NULL,
+	[Email] [nvarchar](50) NULL,
+	[MatKhau] [nvarchar](50) NULL,
+	[TaiKhoan] [nvarchar](50) NULL,
+	[PhanQuyen] [int] NULL,
+ CONSTRAINT [PK_NguoiDung] PRIMARY KEY CLUSTERED 
+(
+	[MaNguoiDung] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+SET IDENTITY_INSERT [dbo].[NguoiDung] ON 
+-- mat khau co the la 123admin or admin123 và 123 được mã hóa MD5
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (1, N'Trinh', N'trinh@gmail.com                                   ', N'D829B843A6550A947E82F2F38ED6B7A7', N'trinh', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (2, N'Duy', N'duy@gmail.com                                     ', N'0192023A7BBD73250516F069DF18B500', N'duy', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (3, N'Vĩnh', N'vinh@gmail.com                                    ', N'D829B843A6550A947E82F2F38ED6B7A7', N'vinh', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (4, N'Long', N'long@gmail.com                                    ', N'D829B843A6550A947E82F2F38ED6B7A7', N'long', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (5, N'admin', N'admin@gmail.com                                   ', N'D829B843A6550A947E82F2F38ED6B7A7', N'admin', 2)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (6, N'456', NULL, N'D829B843A6550A947E82F2F38ED6B7A7', N'123', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (1006, N'admin1', N'admin1@gmail.com                                  ', N'D829B843A6550A947E82F2F38ED6B7A7', N'456', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (1007, N'Long Vuong1', N'LongVuong1@gmail.com', N'0192023A7BBD73250516F069DF18B500', N'longlong', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (1008, N'abcca', N'abc@gmail.com', N'D829B843A6550A947E82F2F38ED6B7A7', N'abc', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (1009, N'longlong11', N'longlong1@gmail.com', N'D829B843A6550A947E82F2F38ED6B7A7', N'trinh1121', 1)
+INSERT [dbo].[NguoiDung] ([MaNguoiDung], [TenNguoiDung], [Email], [MatKhau], [TaiKhoan], [PhanQuyen]) VALUES (1010, N'longlong12', N'longlong12@gmail.com', N'202CB962AC59075B964B07152D234B70', N'longlong12', 1)
+SET IDENTITY_INSERT [dbo].[NguoiDung] OFF
